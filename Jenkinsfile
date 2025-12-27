@@ -11,9 +11,15 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/anbalaganramu/dock_jenkins.git'
             }
         }
-        stage('Build Docker Image from Dockerfile') {
+        stage('Build and Push Docker Image') {
             steps {
-                sh 'docker build -t ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG} .'
+                script{
+                    withDockerRegistry(credentialsId: 'dockerhub_cred') {
+                        sh 'docker build -t ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG} .'
+                        sh 'docker push ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}
+                    }
+                }
+               
             }
         }
     }
