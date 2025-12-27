@@ -17,7 +17,8 @@ pipeline {
                     withDockerRegistry(credentialsId: 'dockerhub_cred') {
                         sh 'docker build -t ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG} .'
                         sh 'docker push ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}'
-                        sh 'docker run --name dockapp -d -p 80:80 ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}'
+                        sh 'docker rm -f dockapp || true'
+                        sh 'docker run --name dockapp -d -p 8080:80 ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}'
                     }
                 }
                
