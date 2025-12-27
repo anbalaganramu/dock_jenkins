@@ -16,7 +16,7 @@ pipeline {
                 script{
                     withDockerRegistry(credentialsId: 'dockerhub_cred') {
                         sh 'docker build -t ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG} .'
-                        sh 'docker push ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}
+                        sh 'docker push ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}'
                     }
                 }
                
