@@ -1,5 +1,10 @@
 pipeline {
     agent {label 'slave1'}
+    environment{
+        DOCKERHUB_USER= "anbumca05"
+        IMAGE_REPO= "docker-jenkins"
+        IMAGE_TAG= "v1"
+    }
     stages {
         stage('Pull SCM') {
             steps {
@@ -8,7 +13,7 @@ pipeline {
         }
         stage('Build Docker Image from Dockerfile') {
             steps {
-                sh 'docker build -t dock-img:v1 .'
+                sh 'docker build -t ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG} .'
             }
         }
     }
