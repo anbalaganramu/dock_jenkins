@@ -20,7 +20,7 @@ pipeline {
                     withDockerRegistry(credentialsId: 'dockerhub_cred') {
                         sh 'docker build -t ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG} .'
                         sh 'docker push ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}'
-                        sh 'docker rm -f ${CONTAINER_NAME} || true'
+                       // sh 'docker rm -f ${CONTAINER_NAME} || true'
                         sh 'docker run --name ${CONTAINER_NAME} -d -p ${HOST_PORT}:{CONTAINER_PORT} ${DOCKERHUB_USER}/${IMAGE_REPO}:${IMAGE_TAG}'
                     }
                 }
